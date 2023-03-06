@@ -1,5 +1,6 @@
 document.addEventListener( 'DOMContentLoaded', function () {
 
+ 
     const makeElement = (docInstance, tagName, contents, attrs) => {
         const elem = docInstance.createElement(tagName);
         if (typeof contents === 'string') {
@@ -11,7 +12,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
         return elem;
     };
 
+
     const formatCost = (cost) => cost.toFixed(2).toString();
+
 
     const formatDate = (delayMinutes) => {
 
@@ -22,11 +25,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
                 + date.toTimeString().substring(0, 5);
     };
 
+
     const initializeCostField = (elem) => {
         elem.value = '0.00';
         elem.setAttribute('readonly', true);
         elem.setAttribute('tabindex', -1);
     };
+
 
     function MenuOption(tableRow) {
         const quantitySelector = tableRow.children[0].children[0];
@@ -42,15 +47,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
         this.totalCostRaw = 0.00;
         this.quantity = 0;
 
+
         this.tableRow = tableRow;
     }
-
+ 
     MenuOption.prototype.onUpdate = function( event ) {
         this.quantity = event.target.value;
         this.totalCostRaw = this.quantity * this.unitCost;
         this.totalCostElem.value = formatCost(this.totalCostRaw);
         const updateEvent = new Event('update');
         this.tableRow.dispatchEvent(updateEvent);
+    };
+
+    MenuOption.prototype.getTotalCost = function () {
+        return this.totalCostRaw;
     };
 
     MenuOption.prototype.makeConfirmationRow = function (doc) {
@@ -64,7 +74,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
             ]
         );
     };
-
 
     const menuRowsNodeList = document.querySelectorAll('tr:not(:first-child)');
     const menuRows = Array.from(menuRowsNodeList);
@@ -95,6 +104,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
     const [street, city] = document.querySelectorAll('.address');
     const onTypeChange = (wantPickup) => {
         isPickup = wantPickup;
+
         street.classList.toggle('hidden', wantPickup);
         city.classList.toggle('hidden', wantPickup);
     };
@@ -115,10 +125,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
         }
         let firstName = firstNameField.value;
         if (firstName != '') {
+
             firstName += ' ';
         }
         return (firstName + lastNameField.value);
     }
+   
     const extractPhoneNumber = () => {
         const isDigit = (c) => c >= '0' && c <= '9';
         return phoneField.value.split('').filter(isDigit).join('');
@@ -127,6 +139,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
         () => (total.value !== '0.00' ? true : 'No items ordered!'),
         () => {
+
             const numDigits = extractPhoneNumber().length;
             return ((numDigits === 7 || numDigits === 10)
                         ? true
@@ -190,7 +203,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
     };
 
     const getConfirmationOrderDetails = (doc) => {
-
         const headerRow = makeElement(
             doc, 'tr',
             ['Quantity', 'Item', 'Unit cost', 'Total cost']
@@ -282,7 +294,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
         const popupWrapper = makeElement(
             document, 'div', [popupDialog], { 'id': 'submission-popup-wrapper' }
         );
-
         popupContinue.addEventListener('click', () => {
             const continueEvent = new Event('continue');
             popupWrapper.dispatchEvent(continueEvent);
@@ -300,7 +311,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
         otherDocBody.append(...getConfirmationBodyItems(otherDoc));
     };
 
- 
     const onSubmitSuccess = () => {
         const popup = getSubmissionPopup();
         document.querySelector('body').append(popup);
@@ -310,18 +320,18 @@ document.addEventListener( 'DOMContentLoaded', function () {
         } )
     };
 
+
     const onFormSubmission = (e) => {
         e.preventDefault();
         if (doValidate()) {
             onSubmitSuccess();
         }
     };
+
     const form = document.querySelector('form');
     form.addEventListener('submit', onFormSubmission);
-
     const submitBtn = document.querySelector(
         'input[type="button"][value="Submit Order"]'
     );
-   
     submitBtn.addEventListener('click', () => form.requestSubmit());
 } );
