@@ -1,0 +1,100 @@
+.hidden {
+    display: none;
+}
+
+p.userInfo:not(:nth-child(5)):not(.hidden) {
+    display: table-row;
+}
+p.userInfo:not(:nth-child(5)) label {
+    display: table-cell;
+
+    padding-right: 10px;
+
+    padding-bottom: 16px;
+}
+p.userInfo:not(:nth-child(5)) input {
+    display: table-cell;
+}
+#submission-popup-wrapper,
+#submission-popup-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+#submission-popup-wrapper {
+    background-color: #FFFFFFA6;
+}
+#submission-popup-dialog {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    border: 1px solid black;
+    padding-top: 5px;
+    background-color: #FFFFFF;
+    font-size: 20px;
+}
+#submission-popup-label {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#submission-popup-label,
+#submission-popup-text {
+    padding: 5px;
+    display: block;
+}
+#submission-popup-wrapper hr {
+    margin-bottom: 0px;
+}
+#submission-popup-continue {
+    width: 100%;
+    height: 30px;
+    font-size: 20px;
+    border: none;
+}
+#submission-popup-continue:hover {
+    background-color: #e8e8e8;
+    cursor: pointer;
+}
+
+.confirmation-page h1 {
+    text-align: center;
+}
+.confirmation-page {
+    font-size: 16pt;
+}
+
+
+.confirmation-page #body-content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.confirmation-page #customer-details p,
+.confirmation-page #timeline-details p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.confirmation-page #order-details,
+.confirmation-page #timeline-details {
+    padding-top: 20px;
+}
+.confirmation-page table,
+.confirmation-page th,
+.confirmation-page td {
+    border: 1px solid black;
+    border-collapse: collapse;
+
+    font-size: 16pt;
+}
+
+.confirmation-page table {
+    width: 100%;
+}
+
+.confirmation-page .subtotal-row {
+}
